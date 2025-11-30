@@ -1,7 +1,7 @@
 {
   "model": "VGG16",
   "image_size": 224,
-  "batch_size": 32,
+  "batch_size": 64,
   "num_classes": 111,
   "class_names": [
     "Bali_Barong",
@@ -116,20 +116,36 @@
     "Yogyakarta_SekarTanjung",
     "Yogyakarta_SekarTebu"
   ],
+  "split_ratio": "60/20/20",
   "training": {
-    "phase1_epochs": 50,
-    "phase1_lr": 0.0001,
-    "phase2_epochs": 20,
-    "phase2_lr": 1e-05
+    "epochs": 30,
+    "best_epoch": 30,
+    "initial_lr": 0.001,
+    "optimizer": "Adam",
+    "scheduler": "ReduceLROnPlateau",
+    "total_time_hours": 1.81,
+    "avg_epoch_time_seconds": 214.75
   },
   "results": {
-    "best_val_accuracy": 99.93526251051985,
-    "test_accuracy": 99.92912142788106,
-    "total_epochs": 70
+    "best_val_acc": 99.2844,
+    "final_train_acc": 98.932,
+    "final_val_acc": 99.2844,
+    "test_acc": 99.285,
+    "test_precision": 0.9929,
+    "test_recall": 0.9929,
+    "test_f1": 0.9928,
+    "inference_speed_imgs_per_sec": 275.16
   },
-  "environment": {
-    "pytorch_version": "2.5.1+cu121",
-    "cuda_version": "12.1",
-    "device": "cuda"
-  }
+  "class_statistics": {
+    "mean_class_accuracy": 99.2817,
+    "std_class_accuracy": 2.0035,
+    "min_class_accuracy": 90.5,
+    "max_class_accuracy": 100.0
+  },
+  "hardware": {
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 3060",
+    "cuda_version": "12.8"
+  },
+  "timestamp": "2025-11-30 03:59:37"
 }
