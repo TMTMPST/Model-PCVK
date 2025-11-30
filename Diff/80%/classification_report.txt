@@ -1,0 +1,127 @@
+======================================================================
+CLASSIFICATION REPORT - VGG16 BATIK MODEL
+======================================================================
+
+Training Date: 2025-11-30 11:28:24
+Split Ratio: 80/10/10
+Best Validation Accuracy: 99.51%
+Test Accuracy: 99.5179%
+Total Training Time: 2.16 hours
+
+                              precision    recall  f1-score   support
+
+                 Bali_Barong     1.0000    1.0000    1.0000       101
+                  Bali_Merak     1.0000    1.0000    1.0000       100
+          Jakarta_OndelOndel     1.0000    1.0000    1.0000       101
+              Jakarta_Tumpal     0.9804    0.9901    0.9852       101
+       JawaBarat_Megamendung     1.0000    0.9600    0.9796       100
+         JawaTengah_Arumdalu     1.0000    1.0000    1.0000       101
+        JawaTengah_AsemArang     1.0000    1.0000    1.0000       101
+        JawaTengah_AsemSinom     1.0000    1.0000    1.0000       101
+        JawaTengah_AsemWarak     1.0000    1.0000    1.0000       101
+           JawaTengah_Blekok     1.0000    1.0000    1.0000       101
+      JawaTengah_BlekokWarak     1.0000    1.0000    1.0000       101
+       JawaTengah_CindeWilis     1.0000    1.0000    1.0000       101
+         JawaTengah_Cipratan     1.0000    1.0000    1.0000       101
+JawaTengah_GambangSemarangan     1.0000    1.0000    1.0000       101
+       JawaTengah_IkanKerang     1.0000    1.0000    1.0000       101
+     JawaTengah_JagungLombok     1.0000    1.0000    1.0000       101
+   JawaTengah_JambuBelimbing     1.0000    1.0000    1.0000       101
+       JawaTengah_JambuCitra     1.0000    1.0000    1.0000       101
+       JawaTengah_JayaKusuma     1.0000    1.0000    1.0000       101
+        JawaTengah_Jlamprang     0.9519    0.9802    0.9659       101
+    JawaTengah_KembangSepatu     1.0000    1.0000    1.0000       101
+          JawaTengah_Kemukus     1.0000    1.0000    1.0000       103
+             JawaTengah_Laut     1.0000    1.0000    1.0000       101
+    JawaTengah_LurikSemangka     1.0000    1.0000    1.0000       101
+ JawaTengah_MasjidAgungDemak     1.0000    1.0000    1.0000       101
+            JawaTengah_Mawur     1.0000    1.0000    1.0000       101
+             JawaTengah_Naga     1.0000    1.0000    1.0000       102
+     JawaTengah_ParangKusumo     0.9712    1.0000    0.9854       101
+     JawaTengah_ParangSlobog     0.9706    0.9802    0.9754       101
+        JawaTengah_Rengganis     1.0000    1.0000    1.0000       101
+        JawaTengah_SariMulat     1.0000    1.0000    1.0000       101
+       JawaTengah_Semarangan     1.0000    1.0000    1.0000       100
+        JawaTengah_Sidoluhur     0.9608    0.9703    0.9655       101
+         JawaTengah_Sritaman     1.0000    1.0000    1.0000       101
+    JawaTengah_TanjungGunung     1.0000    1.0000    1.0000       101
+        JawaTengah_TebuBambu     1.0000    1.0000    1.0000       102
+         JawaTengah_Tembakau     1.0000    1.0000    1.0000       101
+          JawaTengah_Truntum     0.9400    0.9307    0.9353       101
+    JawaTengah_TruntumKurung     1.0000    1.0000    1.0000       101
+         JawaTengah_TuguMuda     1.0000    1.0000    1.0000       101
+   JawaTengah_WarakBerasUtah     1.0000    1.0000    1.0000       101
+   JawaTengah_WorawariRumpuk     1.0000    1.0000    1.0000       101
+             JawaTengah_Yuyu     1.0000    1.0000    1.0000       101
+         JawaTimur_Gentongan     0.9804    1.0000    0.9901       100
+             JawaTimur_Pring     1.0000    1.0000    1.0000       100
+      KalimantanBarat_Insang     0.9902    1.0000    0.9951       101
+            Kalimantan_Dayak     0.9901    1.0000    0.9950       100
+             Lampung_Bledheg     1.0000    1.0000    1.0000       102
+               Lampung_Gajah     1.0000    1.0000    1.0000       102
+         Lampung_KacangHijau     1.0000    1.0000    1.0000       101
+                 Maluku_Pala     1.0000    1.0000    1.0000       100
+                 NTB_Lumbung     0.9901    1.0000    0.9950       100
+                 Papua_Asmat     1.0000    1.0000    1.0000       100
+           Papua_Cendrawasih     1.0000    0.9901    0.9950       101
+                  Papua_Tifa     0.9901    1.0000    0.9950       100
+     SulawesiSelatan_Lontara     0.9804    1.0000    0.9901       100
+   SumateraBarat_RumahMinang     0.9804    1.0000    0.9901       100
+     SumateraUtara_Boraspati     0.9900    0.9900    0.9900       100
+     SumateraUtara_PintuAceh     1.0000    0.9800    0.9899       100
+           Yogyakarta_Brendi     1.0000    1.0000    1.0000       101
+        Yogyakarta_CakarAyam     0.9252    0.9900    0.9565       100
+     Yogyakarta_CeplokLiring     1.0000    1.0000    1.0000       101
+       Yogyakarta_Gendhangan     1.0000    1.0000    1.0000       101
+       Yogyakarta_JayaKirana     1.0000    1.0000    1.0000       101
+        Yogyakarta_Karawitan     1.0000    1.0000    1.0000       101
+           Yogyakarta_Kawung     0.9697    0.9505    0.9600       101
+      Yogyakarta_KlampokArum     1.0000    1.0000    1.0000       101
+    Yogyakarta_KuncupKanthil     1.0000    1.0000    1.0000       101
+          Yogyakarta_Manggar     1.0000    1.0000    1.0000       101
+     Yogyakarta_ParangBarong     0.9789    0.9300    0.9538       100
+     Yogyakarta_ParangCurigo     1.0000    1.0000    1.0000       101
+      Yogyakarta_ParangRusak     0.9485    0.9109    0.9293       101
+     Yogyakarta_ParangTuding     0.9901    0.9901    0.9901       101
+     Yogyakarta_SekarAndhong     1.0000    1.0000    1.0000       101
+    Yogyakarta_SekarBlimbing     1.0000    1.0000    1.0000       101
+     Yogyakarta_SekarCengkeh     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarDangan     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarDhuku     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarDlima     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarDuren     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarGambir     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarGayam     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarJagung     1.0000    1.0000    1.0000       101
+        Yogyakarta_SekarJali     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarJeruk     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarKeben     1.0000    1.0000    1.0000       101
+    Yogyakarta_SekarKemuning     1.0000    1.0000    1.0000       101
+     Yogyakarta_SekarKenanga     1.0000    1.0000    1.0000       101
+     Yogyakarta_SekarKenikir     1.0000    1.0000    1.0000       101
+    Yogyakarta_SekarKenthang     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarKepel     1.0000    1.0000    1.0000       101
+  Yogyakarta_SekarKetongkeng     1.0000    1.0000    1.0000       101
+     Yogyakarta_SekarLintang     1.0000    1.0000    1.0000       101
+     Yogyakarta_SekarManggis     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarMenur     0.9894    0.9208    0.9538       101
+       Yogyakarta_SekarMindi     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarMlathi     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarMrica     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarMundhu     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarNangka     1.0000    1.0000    1.0000       101
+       Yogyakarta_SekarPacar     1.0000    1.0000    1.0000       101
+        Yogyakarta_SekarPala     1.0000    1.0000    1.0000       101
+     Yogyakarta_SekarPijetan     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarPudhak     1.0000    1.0000    1.0000       101
+      Yogyakarta_SekarRandhu     1.0000    1.0000    1.0000       101
+        Yogyakarta_SekarSawo     1.0000    1.0000    1.0000       101
+        Yogyakarta_SekarSoka     1.0000    1.0000    1.0000       101
+   Yogyakarta_SekarSrengenge     1.0000    1.0000    1.0000       101
+  Yogyakarta_SekarSrigadhing     1.0000    1.0000    1.0000       101
+     Yogyakarta_SekarTanjung     1.0000    1.0000    1.0000       101
+        Yogyakarta_SekarTebu     1.0000    1.0000    1.0000       101
+
+                    accuracy                         0.9952     11201
+                   macro avg     0.9952    0.9952    0.9951     11201
+                weighted avg     0.9952    0.9952    0.9952     11201
