@@ -45,7 +45,7 @@ IMG_SIZE = 224
 async def load_model():
     """Load ONNX model and labels on server startup"""
     global ort_session, class_names
-    
+
     try:
         # Load ONNX model
         logger.info("Loading ONNX model...")
@@ -54,17 +54,17 @@ async def load_model():
             providers=['CUDAExecutionProvider', 'CPUExecutionProvider']  # GPU if available
         )
         logger.info(f"Model loaded successfully on {ort_session.get_providers()}")
-        
+
         # Load class labels
         with open("exports/labels.txt", "r") as f:
             class_names = [line.strip() for line in f.readlines()]
         logger.info(f"Loaded {len(class_names)} class labels")
-        
+
         # Load model config
         with open("exports/model_config.json", "r") as f:
             config = json.load(f)
         logger.info(f"Model accuracy: {config.get('test_acc', 'N/A')}%")
-        
+
     except Exception as e:
         logger.error(f"Failed to load model: {str(e)}")
         raise
@@ -78,13 +78,13 @@ def preprocess_image(image_bytes: bytes) -> np.ndarray:
         # Load image
         image = Image.open(io.BytesIO(image_bytes)).convert('RGB')
         image = np.array(image)
-        
+
         # Resize to 224x224
         image = cv2.resize(image, (IMG_SIZE, IMG_SIZE), interpolation=cv2.INTER_AREA)
-        
+
         # Bilateral Filter (noise reduction while preserving edges)
         image = cv2.bilateralFilter(image, d=9, sigmaColor=75, sigmaSpace=75)
-        
+
         # CLAHE on LAB color space
         lab = cv2.cvtColor(image, cv2.COLOR_RGB2LAB)
         l, a, b = cv2.split(lab)
@@ -92,25 +92,25 @@ def preprocess_image(image_bytes: bytes) -> np.ndarray:
         l = clahe.apply(l)
         image = cv2.merge([l, a, b])
         image = cv2.cvtColor(image, cv2.COLOR_LAB2RGB)
-        
+
         # Edge enhancement (unsharp masking)
         gaussian = cv2.GaussianBlur(image, (0, 0), 2.0)
         image = cv2.addWeighted(image, 1.5, gaussian, -0.5, 0)
-        
+
         # Normalize to [0, 1]
         image = image.astype(np.float32) / 255.0
-        
+
         # ImageNet normalization
         mean = np.array([0.485, 0.456, 0.406], dtype=np.float32)
         std = np.array([0.229, 0.224, 0.225], dtype=np.float32)
         image = (image - mean) / std
-        
+
         # Convert to NCHW format (batch, channels, height, width)
         image = image.transpose(2, 0, 1)
         image = np.expand_dims(image, axis=0)
-        
+
         return image.astype(np.float32)
-    
+
     except Exception as e:
         logger.error(f"Preprocessing error: {str(e)}")
         raise HTTPException(status_code=400, detail=f"Image preprocessing failed: {str(e)}")
@@ -118,7 +118,7 @@ def preprocess_image(image_bytes: bytes) -> np.ndarray:
 def get_predictions(probabilities: np.ndarray, top_k: int = 5) -> List[Dict]:
     """Get top-k predictions with class names and confidences"""
     top_k_idx = np.argsort(probabilities)[-top_k:][::-1]
-    
+
     predictions = [
         {
             "class_name": class_names[idx],
@@ -127,7 +127,7 @@ def get_predictions(probabilities: np.ndarray, top_k: int = 5) -> List[Dict]:
         }
         for idx in top_k_idx
     ]
-    
+
     return predictions
 
 @app.get("/")
@@ -169,44 +169,44 @@ async def get_classes():
 async def predict(file: UploadFile = File(...)):
     """
     Predict batik class from uploaded image
-    
+
     Parameters:
     - file: Image file (JPEG, PNG)
-    
+
     Returns:
     - prediction: Top predicted class
     - confidence: Confidence score (0-1)
     - top_5: Top 5 predictions with confidences
     """
-    
+
     # Validate model is loaded
     if ort_session is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
-    
+
     # Validate file type
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File must be an image")
-    
+
     try:
         # Read image bytes
         image_bytes = await file.read()
         logger.info(f"Processing image: {file.filename} ({len(image_bytes)} bytes)")
-        
+
         # Preprocess image
         input_tensor = preprocess_image(image_bytes)
-        
+
         # Run inference
         ort_inputs = {ort_session.get_inputs()[0].name: input_tensor}
         ort_outputs = ort_session.run(None, ort_inputs)
-        
+
         # Get probabilities (apply softmax)
         logits = ort_outputs[0][0]
         exp_logits = np.exp(logits - np.max(logits))
         probabilities = exp_logits / exp_logits.sum()
-        
+
         # Get predictions
         top_5 = get_predictions(probabilities, top_k=5)
-        
+
         # Prepare response
         response = {
             "success": True,
@@ -223,11 +223,11 @@ async def predict(file: UploadFile = File(...)):
                 "input_size": f"{IMG_SIZE}x{IMG_SIZE}"
             }
         }
-        
+
         logger.info(f"Prediction: {top_5[0]['class_name']} ({top_5[0]['confidence_percent']})")
-        
+
         return JSONResponse(content=response)
-    
+
     except HTTPException:
         raise
     except Exception as e:
@@ -238,52 +238,52 @@ async def predict(file: UploadFile = File(...)):
 async def predict_batch(files: List[UploadFile] = File(...)):
     """
     Predict batik classes for multiple images (batch processing)
-    
+
     Parameters:
     - files: List of image files
-    
+
     Returns:
     - predictions: List of predictions for each image
     """
-    
+
     if ort_session is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
-    
+
     if len(files) > 10:
         raise HTTPException(status_code=400, detail="Maximum 10 images per batch")
-    
+
     results = []
-    
+
     for file in files:
         try:
             image_bytes = await file.read()
             input_tensor = preprocess_image(image_bytes)
-            
+
             # Run inference
             ort_inputs = {ort_session.get_inputs()[0].name: input_tensor}
             ort_outputs = ort_session.run(None, ort_inputs)
-            
+
             # Get probabilities
             logits = ort_outputs[0][0]
             exp_logits = np.exp(logits - np.max(logits))
             probabilities = exp_logits / exp_logits.sum()
-            
+
             # Get predictions
             top_3 = get_predictions(probabilities, top_k=3)
-            
+
             results.append({
                 "filename": file.filename,
                 "success": True,
                 "prediction": top_3[0]
             })
-            
+
         except Exception as e:
             results.append({
                 "filename": file.filename,
                 "success": False,
                 "error": str(e)
             })
-    
+
     return {
         "success": True,
         "num_images": len(files),
