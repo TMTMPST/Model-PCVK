@@ -1,0 +1,43 @@
+{
+  "class_names": [
+    "Bali_Barong",
+    "JawaTengah_Blekok",
+    "JawaTengah_JayaKusuma",
+    "JawaTengah_KembangSepatu",
+    "JawaTengah_LurikSemangka",
+    "JawaTengah_ParangKusumo",
+    "JawaTengah_ParangSlobog",
+    "JawaTengah_Semarangan",
+    "JawaTengah_Truntum",
+    "KalimantanBarat_Insang",
+    "Kalimantan_Dayak",
+    "Lampung_Gajah",
+    "Papua_Asmat",
+    "Papua_Cendrawasih",
+    "SumateraBarat_RumahMinang",
+    "SumateraUtara_PintuAceh",
+    "Yogyakarta_CeplokLiring",
+    "Yogyakarta_Kawung",
+    "Yogyakarta_Manggar",
+    "Yogyakarta_ParangBarong"
+  ],
+  "num_classes": 20,
+  "IMG_SIZE": [
+    256,
+    256
+  ],
+  "LBP_RADIUS": 3,
+  "LBP_N_POINTS": 24,
+  "GLCM_DISTANCES": [
+    1
+  ],
+  "GLCM_ANGLES": [
+    0,
+    0.7853981633974483,
+    1.5707963267948966,
+    2.356194490192345
+  ],
+  "model_type": "SVM",
+  "feature_extraction": "HSV+GLCM+LBP",
+  "total_features": 41
+}

@@ -194,30 +194,41 @@ def predict_batik(image):
 
         # ONNX inference
         input_name = onnx_session.get_inputs()[0].name
-        output_name = onnx_session.get_outputs()[0].name
 
-        # Get prediction
-        onnx_outputs = onnx_session.run([output_name], {input_name: features})
-        prediction_idx = onnx_outputs[0][0]
+        # Run all outputs
+        output_names = [output.name for output in onnx_session.get_outputs()]
+        onnx_outputs = onnx_session.run(output_names, {input_name: features})
+
+        # Parse outputs based on what's available
+        prediction_output = onnx_outputs[0]
+
+        # Handle different output formats
+        if isinstance(prediction_output[0], (list, np.ndarray)):
+            # Probability output - get argmax
+            probabilities = np.array(prediction_output[0])
+            prediction_idx = int(np.argmax(probabilities))
+        elif isinstance(prediction_output[0], str):
+            # String label output
+            prediction = prediction_output[0]
+            prediction_idx = class_names.index(prediction) if prediction in class_names else 0
+            # Create uniform probabilities
+            probabilities = np.zeros(len(class_names))
+            probabilities[prediction_idx] = 1.0
+        else:
+            # Integer index output
+            prediction_idx = int(prediction_output[0])
+            # Create uniform probabilities
+            probabilities = np.zeros(len(class_names))
+            probabilities[prediction_idx] = 1.0
 
         # Get prediction label
-        if len(class_names) > 0:
+        if len(class_names) > 0 and prediction_idx < len(class_names):
             prediction = class_names[prediction_idx]
         else:
             prediction = f"Class_{prediction_idx}"
 
-        # Try to get probabilities if model outputs them
+        # Get top predictions
         try:
-            if len(onnx_session.get_outputs()) > 1:
-                # Model has probability output
-                prob_output_name = onnx_session.get_outputs()[1].name
-                probabilities = onnx_session.run([prob_output_name], {input_name: features})[0][0]
-            else:
-                # Create pseudo-probabilities (all equal except predicted class)
-                probabilities = np.zeros(len(class_names))
-                probabilities[prediction_idx] = 1.0
-
-            # Get top predictions
             if len(class_names) > 0:
                 top_k = min(10, len(class_names))
                 top_indices = np.argsort(probabilities)[-top_k:][::-1]
@@ -233,7 +244,7 @@ def predict_batik(image):
                 confidence_score = 100.0
 
         except Exception as e:
-            print(f"Warning: Could not get probabilities: {e}")
+            print(f"Warning: Could not get predictions dict: {e}")
             predictions_dict = {prediction: 1.0}
             confidence_score = 100.0
 
@@ -474,7 +485,10 @@ if os.path.exists(example_folder):
                 example_images.append(os.path.join(class_path, images[0]))
 
 # Build Gradio interface
-with gr.Blocks(css=custom_css) as demo:
+with gr.Blocks() as demo:
+
+    # Inject custom CSS
+    gr.HTML(f"""<style>{custom_css}</style>""")
 
     # Header
     num_classes = len(class_names)
