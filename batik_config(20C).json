@@ -29,7 +29,8 @@
   "LBP_RADIUS": 3,
   "LBP_N_POINTS": 24,
   "GLCM_DISTANCES": [
-    1
+    1,
+    2
   ],
   "GLCM_ANGLES": [
     0,

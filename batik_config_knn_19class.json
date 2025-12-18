@@ -1,0 +1,50 @@
+{
+  "class_names": [
+    "Bali_Barong",
+    "Bali_Merak",
+    "Jakarta_OndelOndel",
+    "JawaBarat_Megamendung",
+    "JawaTengah_LurikSemangka",
+    "JawaTengah_ParangKusumo",
+    "JawaTengah_Semarangan",
+    "JawaTengah_Sidoluhur",
+    "JawaTengah_Truntum",
+    "Kalimantan_Dayak",
+    "Lampung_Gajah",
+    "Papua_Asmat",
+    "Papua_Cendrawasih",
+    "Papua_Tifa",
+    "SulawesiSelatan_Lontara",
+    "Yogyakarta_CeplokLiring",
+    "Yogyakarta_Kawung",
+    "Yogyakarta_ParangBarong",
+    "Yogyakarta_ParangRusak"
+  ],
+  "num_classes": 19,
+  "IMG_SIZE": [
+    256,
+    256
+  ],
+  "LBP_RADIUS": 3,
+  "LBP_N_POINTS": 24,
+  "GLCM_DISTANCES": [
+    1,
+    2
+  ],
+  "GLCM_ANGLES": [
+    0,
+    0.7853981633974483,
+    1.5707963267948966,
+    2.356194490192345
+  ],
+  "GLCM_LEVELS": 32,
+  "model_type": "KNN",
+  "n_neighbors": 5,
+  "weights": "distance",
+  "metric": "euclidean",
+  "feature_extraction": "HSV+GLCM+LBP",
+  "total_features": 41,
+  "pca_components": 17,
+  "train_accuracy": 0.9999250206193296,
+  "test_accuracy": 0.9166666666666666
+}
